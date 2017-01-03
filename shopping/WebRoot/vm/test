@@ -1,0 +1,45 @@
+	//到指定的分页页面
+	function topage(page){
+		var form = document.forms[0];
+		form.currpage.value=page;
+		form.submit();
+	}
+	
+	function actionEvent(methodname){
+		var form = document.forms[0];
+		if(validateIsSelect(form.all, form.productids)){
+			form.action='<s:url action="productAction_setState" namespace="/control"/>?productids=form.productids.value';
+			form.methodname.value=methodname;
+			form.submit();
+		}else{
+			alert("请选择要操作的记录");
+		}
+	}
+	
+	function allselect(allobj,items){
+	    var state = allobj.checked;
+	    if(items.length){
+	    	for(var i=0;i<items.length;i++){
+	    		if(!items[i].disabled) items[i].checked=state;
+	    	}
+	    }else{
+	    	if(!items[i].disabled) items.checked=state;
+	    }
+	}
+	/*
+	 * 判断是否选择了记录
+     */
+	function validateIsSelect(allobj,items){
+	    var state = allobj.checked;
+	    if(items.length){
+	    	for(var i=0;i<items.length;i++){
+	    		if(items[i].checked) return true;
+	    	}
+	    }else{
+	    	if(items.checked) return true;
+	    }
+	    return false;
+	}
+	
+	
+	

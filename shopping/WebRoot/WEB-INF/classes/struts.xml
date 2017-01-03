@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<!-- 当修改配置文件不需要重启服务，开发比较有用 -->
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<!-- 处理编码问题 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<package name="shop" namespace="/control" extends="struts-default">
+		<action name="productTypeAction_*" class="myshop.web.action.ProductTypeAction" method="{1}">
+			<result name="findAllType_success">/page/product/producttypelist.jsp</result>
+			<result name="add_UI">/page/product/add_productType.jsp</result>
+			<result name="add_fail">/page/share/message.jsp</result>
+			<result name="add_success">/page/share/message.jsp</result>
+			<result name="editUI">/page/product/edit_productType.jsp</result>
+			<result name="edit_sucess" type="redirectAction">productTypeAction_findAllType</result>
+			<result name="selectUI">/page/product/productTypeSelect.jsp</result>
+		</action>
+		<action name="brandAction_*" class="myshop.web.action.BrandAction" method="{1}">
+			<result name="findBrand">/page/product/brandlist.jsp</result>
+			<result name="add">/page/share/message.jsp</result>
+			<result name="editUI">/page/product/edit_brand.jsp</result>
+			<result name="edit">/page/share/message.jsp</result>
+			<result name="addUI">/page/product/add_product.jsp</result>
+			<result name="addUI_Product">/page/product/query_product.jsp</result>
+			<result name="addUI_edit">/page/product/edit_product.jsp</result>
+		</action>
+		<action name="uploadFileAction_*"  class="myshop.web.action.UploadFileAction" method="{1}">
+			<result name="find">/page/uploadfile/uploadfilelist.jsp</result>
+		</action>
+		
+		<action name="customerAction_*" class="myshop.web.action.CustomerAction" method="{1}">
+			<result name="find">/page/user/userlist.jsp</result>
+			<result name="register">/page/share/message.jsp</result>
+			<result name="register_succ">/page/user/logon.jsp</result>
+			<result name="register_fail">/page/user/userReg.jsp</result>
+			<result name="check">/page/user/checkuser.jsp</result>
+			<result name="login">/page/share/message.jsp</result>
+			<result name="loginsucc" type="redirectAction">frontProductAction_findProduct</result>
+			<result name="loginfail">/page/user/errorresult.jsp</result>
+			<result name="setState" type="redirectAction">customerAction_findAllCustomer</result>
+			<result name="settleAccounts">/page/shopping/deliverInfo.jsp</result>
+		</action>
+
+		<action name="productAction_*" class="myshop.web.action.ProductAction" method="{1}">
+			<result name="find">/page/product/productlist.jsp</result>
+			<result name="find_fail">/page/share/message.jsp</result>
+			<result name="add">/page/share/message.jsp</result>
+			<result name="addlogo">/page/product/add_productstyle.jsp</result>
+			<result name="query">/page/product/productlist.jsp</result>
+			<result name="findfailUI" type="redirectAction">productAction_findAllProduct</result>
+			<result name="setState">/page/share/message.jsp</result>
+			<result name="setFail" type="redirectAction">productAction_findAllProduct</result>
+			<result name="setSucc" type="redirectAction">productAction_findAllProduct</result>
+			<result name="editUI">/page/product/edit_product.jsp</result>
+			<result name="editProduct">/page/share/message.jsp</result>
+			<result name="view">/page/product/frontpage/productview.jsp</result>
+		</action>
+		
+		<action name="productStyleAction_*" class="myshop.web.action.ProductStyleAction" method="{1}">
+			<result name="findOk">/page/product/productstylelist.jsp</result>
+			<result name="addUI">/page/product/add_productstyle.jsp</result>
+			<result name="editUI">/page/product/edit_productstyle.jsp</result>
+			<result name="addlogo">/page/product/add_productstyle.jsp</result>
+			<result name="add">/page/share/message.jsp</result>		
+			<result name="setState">/page/share/message.jsp</result>	
+			<result name="edit">/page/share/message.jsp</result>	
+		</action>
+		
+		<action name="systemPrivilegeAction_*"  class="myshop.web.action.SystemPrivilegeAction" method="{1}">
+			<result name="init">/page/share/message.jsp</result>
+			<result name="initUI">/page/user/logon.jsp</result>
+			<result name="add">/page/share/message.jsp</result>
+		</action>
+		
+		<action name="privilegeGroupAction_*"  class="myshop.web.action.PrivilegeGroupAction" method="{1}">
+			<result name="findGroup">/page/department/privilegegrouplist.jsp</result>
+			<result name="addUI">/page/department/addprivilegegroup.jsp</result>
+			<result name="add">/page/share/message.jsp</result>
+			<result name="addSucc" type="redirectAction">privilegeGroupAction_findGroup</result>
+			<result name="delete">/page/share/message.jsp</result>
+			<result name="editUI">/page/department/editprivilegegroup.jsp</result>
+			<result name="edit">/page/share/message.jsp</result>
+		</action>
+		
+		<action name="departmentAction_*" class="myshop.web.action.DepartmentAction" method="{1}">
+			<result name="findDepartment">/page/department/departmentlist.jsp</result>
+			<result name="editUI">/page/department/edit_department.jsp</result>	
+			<result name="operateResult" type="redirectAction">departmentAction_findDepartment</result>
+			<result name="add">/page/share/message.jsp</result>	
+			<result name="edit">/page/share/message.jsp</result>
+			<result name="delete">/page/share/message.jsp</result>
+			<result name="add_Employee_UI">/page/department/addemployee.jsp</result>
+			<result name="addUI">/page/department/query.jsp</result>
+		</action>
+		
+		<action name="employeeAction_*" class="myshop.web.action.EmployeeAction" method="{1}">
+			<result name="findemployee">/page/department/employeelist.jsp</result>
+			<result name="addUI">/page/department/addemployee.jsp</result>
+			<result name="add">/page/share/message.jsp</result>
+			<result name="operatorResult" type="redirectAction">employeeAction_findemployee</result>
+			<result name="delete">/page/share/message.jsp</result>
+			<result name="editUI">/page/department/editemployee.jsp</result>
+			<result name="editResult">/page/share/message.jsp</result>
+			<result name="set">/page/share/message.jsp</result>
+			<result name="SetUI">/page/department/privilegeSet.jsp</result>
+			<result name="query">/page/department/employeelist.jsp</result>
+		</action>
+		
+		<action name="cartAction_*" class="myshop.web.action.CartAction" method="{1}">
+			<result name="addItem">/page/shopping/cart.jsp</result>
+			<result name="deleteAll" type="redirectAction">cartAction_addItem</result>
+			<result name="delete" type="redirectAction">cartAction_addItem</result>
+			<result name="updateAll" type="redirectAction">cartAction_addItem</result>
+		</action>
+	 
+		<action name="frontProductAction_*" class="myshop.web.action.FrontProductAction" method="{1}">
+			<result name="findProduct">/page/product/frontpage/productlist.jsp</result>
+			<result name="view">/page/product/frontpage/productview.jsp</result>
+		</action>
+		
+		<action name="deliverInfoAction_*" class="myshop.web.action.DeliverInfoAction" method="{1}">
+			<result name="saveDeliverInfo">/page/shopping/paymentway.jsp</result>
+		</action>
+		
+		<action name="main_top">
+			<result>/page/controlcenter/top.jsp</result>
+		</action>
+		<action name="main_left">
+			<result>/page/controlcenter/menu.jsp</result>
+		</action>
+		<action name="main_right">
+			<result>/page/controlcenter/right.jsp</result>
+		</action>
+		<action name="main_end">
+			<result>/page/controlcenter/end.jsp</result>
+		</action>
+	</package>
+</struts>

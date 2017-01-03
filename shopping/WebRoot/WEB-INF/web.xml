@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns="http://java.sun.com/xml/ns/javaee" 
+		xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+		http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>shopping</display-name>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</listener-class>
+	</listener>
+  <!-- 配置session监听器 -->
+	<listener>
+		<listener-class>myshop.web.filter.SiteSessionListener</listener-class>
+	</listener>
+
+
+	<filter>
+		<filter-name>buyerLogonValidateFilter</filter-name>
+		<filter-class>myshop.web.filter.BuyerLogonValidateFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>buyerLogonValidateFilter</filter-name>
+		<url-pattern>/control/customerAction_settleAccounts.action</url-pattern>
+	</filter-mapping>
+  <!-- 字符编码过滤器-->
+	<filter>
+	<filter-name>codeFilter</filter-name>
+	<filter-class>myshop.web.filter.SetCodeFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>codeFilter</filter-name>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>codeFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+  <!-- struts2的过滤器 -->
+  <filter>
+    <filter-name>struts2</filter-name>
+    <filter-class>
+            org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
+        </filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>struts2</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- 解决该异常failed to lazily initialize a collection of role: myblog.bean.Article.comments, no session or session was closed -->
+<!-- open session in view filter -->
+    <filter>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+        <init-param>
+            <param-name>sessionFactoryBeanName</param-name>
+            <param-value>org.sakaiproject.springframework.orm.hibernate.GlobalSessionFactory</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <servlet-name>FacesServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </filter-mapping>
+</web-app>
